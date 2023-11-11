@@ -1,5 +1,8 @@
 package christmas
 
+import christmas.controller.ChristmasController
+
 fun main() {
-    TODO("프로그램 구현")
+    val controller = ChristmasController()
+    controller.run()
 }
