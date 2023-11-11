@@ -5,6 +5,10 @@ class OutputView {
         printError("유효하지 않은 날짜입니다. 다시 입력해 주세요.")
     }
 
+    fun printInvalidOrderError() {
+        printError("유효하지 않은 주문입니다. 다시 입력해 주세요.")
+    }
+
     private fun printError(message: String) {
         println("[ERROR] $message")
     }
