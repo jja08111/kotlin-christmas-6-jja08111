@@ -32,6 +32,6 @@ class ChampagneFreebieTest {
         val freebies = champagneFreebie.present()
 
         assert(freebies.size == 1)
-        assert(freebies[0] == Drink.Champagne)
+        assert(freebies[Drink.Champagne] == 1)
     }
 }

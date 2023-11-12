@@ -6,12 +6,12 @@ import christmas.model.Order
 
 class ChampagneFreebie(private val order: Order) : Freebie {
 
-    override fun present(): List<Menu> {
+    override fun present(): Map<Menu, Int> {
         val orderAmount = order.calculateAmount()
         if (orderAmount < MIN_ORDER_AMOUNT) {
-            return emptyList()
+            return emptyMap()
         }
-        return listOf(Drink.Champagne)
+        return mapOf(Drink.Champagne to 1)
     }
 
     companion object {

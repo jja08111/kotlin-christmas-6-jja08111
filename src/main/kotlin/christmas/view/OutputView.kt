@@ -33,22 +33,22 @@ class OutputView {
         println()
     }
 
-    fun printFreebies(freebies: List<Menu>) {
+    fun printFreebies(countByFreebie: Map<Menu, Int>) {
         printTitle("증정 메뉴")
-        if (freebies.isEmpty()) {
+        if (countByFreebie.isEmpty()) {
             printEmpty()
             println()
             return
         }
-        freebies.forEach { menu ->
-            println("${menu.koreanName} 1개")
+        countByFreebie.forEach { (menu, count) ->
+            println("${menu.koreanName} ${count}개")
         }
         println()
     }
 
-    fun printBenefits(discountResults: List<DiscountResult>, freebies: List<Menu>) {
+    fun printBenefits(discountResults: List<DiscountResult>, countByFreebie: Map<Menu, Int>) {
         printTitle("혜택 내역")
-        if (discountResults.isEmpty() && freebies.isEmpty()) {
+        if (discountResults.isEmpty() && countByFreebie.isEmpty()) {
             printEmpty()
             println()
             return
@@ -57,8 +57,9 @@ class OutputView {
             val amount = discountResult.amount
             println("${discountResult.name}: -${amount.toNumberFormat()}원")
         }
-        if (freebies.isNotEmpty()) {
-            val freebieAmount = freebies.sumOf { it.price }
+        if (countByFreebie.isNotEmpty()) {
+            val freebieAndCounts = countByFreebie.toList()
+            val freebieAmount = freebieAndCounts.sumOf { it.first.price * it.second }
             println("증정 이벤트: -${freebieAmount.toNumberFormat()}원")
         }
         println()

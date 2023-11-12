@@ -39,17 +39,33 @@ class ChristmasEvent(order: Order, date: LocalDate) : Event {
         }
     }
 
-    override fun calculateFreebie(): List<Menu> {
+    override fun calculateFreebie(): Map<Menu, Int> {
         if (!canGiveEvent) {
-            return emptyList()
+            return emptyMap()
         }
-        return freebies.flatMap { it.present() }
+        var result = mapOf<Menu, Int>()
+        freebies.forEach { freebie ->
+            val countByMenu = freebie.present()
+            result = result.sum(countByMenu)
+        }
+        return result
+    }
+
+    private fun <K> Map<K, Int>.sum(other: Map<K, Int>): Map<K, Int> {
+        return (this.toList() + other.toList())
+            .groupBy(keySelector = { it.first }, valueTransform = { it.second })
+            .map { (key, values) -> key to values.sum() }
+            .toMap()
     }
 
     override fun calculateTotalBenefitAmount(): Int {
         val discount = calculateDiscount()
         val freebie = calculateFreebie()
-        return discount.sumOf { it.amount } + freebie.sumOf { it.price }
+        var amount = discount.sumOf { it.amount }
+        freebie.forEach { (menu, count) ->
+            amount += menu.price * count
+        }
+        return amount
     }
 
     override fun calculateBadge(): List<Badge> {
