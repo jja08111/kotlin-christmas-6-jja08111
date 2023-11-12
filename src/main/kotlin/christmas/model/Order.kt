@@ -22,6 +22,14 @@ class Order(
         require(order.any { it.first !is Drink })
     }
 
+    fun countDessert(): Int {
+        return menuAndCounts.sumOf {
+            if (it.first is Dessert) {
+                it.second
+            } else 0
+        }
+    }
+
     companion object {
         private const val MIN_MENU_COUNT = 1
         private val TOTAL_MENU_COUNT_RANGE = 1..20
