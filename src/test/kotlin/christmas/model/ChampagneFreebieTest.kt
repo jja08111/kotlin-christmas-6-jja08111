@@ -1,9 +1,9 @@
 package christmas.model
 
-import christmas.model.freebie.ChampagneFreebieEvent
+import christmas.model.freebie.ChampagneFreebie
 import org.junit.jupiter.api.Test
 
-class ChampagneFreebieEventTest {
+class ChampagneFreebieTest {
     @Test
     fun `주문 금액이 12만원 미만이면 증정품이 없다`() {
         val order = Order(
@@ -12,9 +12,9 @@ class ChampagneFreebieEventTest {
                 Main.TBoneStake to 2
             )
         )
-        val champagneFreebieEvent = ChampagneFreebieEvent(order = order)
+        val champagneFreebie = ChampagneFreebie(order = order)
 
-        val freebies = champagneFreebieEvent.present()
+        val freebies = champagneFreebie.present()
 
         assert(freebies.isEmpty())
     }
@@ -27,9 +27,9 @@ class ChampagneFreebieEventTest {
                 Dessert.IceCream to 2
             )
         )
-        val champagneFreebieEvent = ChampagneFreebieEvent(order = order)
+        val champagneFreebie = ChampagneFreebie(order = order)
 
-        val freebies = champagneFreebieEvent.present()
+        val freebies = champagneFreebie.present()
 
         assert(freebies.size == 1)
         assert(freebies[0] == Drink.Champagne)

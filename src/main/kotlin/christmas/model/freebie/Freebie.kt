@@ -2,6 +2,6 @@ package christmas.model.freebie
 
 import christmas.model.Menu
 
-interface FreebieEvent {
+interface Freebie {
     fun present(): List<Menu>
 }
