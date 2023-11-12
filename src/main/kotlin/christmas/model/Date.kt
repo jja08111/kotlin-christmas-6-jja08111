@@ -1,6 +1,6 @@
 package christmas.model
 
-class Date(val year: Int, val month: Int, val day: Int) {
+class Date(val year: Int, val month: Int, val day: Int) : Comparable<Date> {
     init {
         val maxDayOfMonth = getMaxDayOf(year = year, month = month)
         require(day in 1..maxDayOfMonth)
@@ -17,5 +17,9 @@ class Date(val year: Int, val month: Int, val day: Int) {
 
     private fun Int.isLeapYear(): Boolean {
         return this % 4 == 0 && this % 100 != 0 || this % 400 == 0
+    }
+
+    override fun compareTo(other: Date): Int {
+        return compareValuesBy(this, other, { it.year }, { it.month }, { it.day })
     }
 }
