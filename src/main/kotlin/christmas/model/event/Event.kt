@@ -7,5 +7,7 @@ import christmas.model.Menu
 interface Event {
     fun calculateDiscount(): List<DiscountResult>
     fun calculateFreebie(): List<Menu>
+    fun calculateTotalBenefitAmount(): Int
     fun calculateBadge(): List<Badge>
+    fun calculatePaymentAmount(): Int
 }

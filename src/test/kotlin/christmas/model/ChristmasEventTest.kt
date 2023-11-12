@@ -83,4 +83,31 @@ class ChristmasEventTest {
         assert(badges.size == 1)
         assert(badges[0] == Badge.Santa)
     }
+
+    @Test
+    fun `총혜택 금액은 할인 금액과 샴페인 증정품 금액을 더한 값이다`() {
+        val date = LocalDate.of(2023, 12, 25)
+        val order = Order(menuAndCounts = listOf(Main.TBoneStake to 3))
+        val christmasEvent = ChristmasEvent(order = order, date = date)
+
+        val benefitAmount = christmasEvent.calculateTotalBenefitAmount()
+        val discounts = christmasEvent.calculateDiscount()
+        val discountAmount = discounts.sumOf { it.amount }
+
+        assert(benefitAmount == discountAmount + Drink.Champagne.price)
+    }
+
+    @Test
+    fun `예상 결제 금액은 주문 금액에서 할인 금액을 뺀 값이다`() {
+        val date = LocalDate.of(2023, 12, 25)
+        val order = Order(menuAndCounts = listOf(Dessert.IceCream to 2, Main.TBoneStake to 3))
+        val christmasEvent = ChristmasEvent(order = order, date = date)
+
+        val discounts = christmasEvent.calculateDiscount()
+        val discountAmount = discounts.sumOf { it.amount }
+        val orderAmount = order.calculateAmount()
+        val paymentAmount = christmasEvent.calculatePaymentAmount()
+
+        assert(paymentAmount == orderAmount - discountAmount)
+    }
 }

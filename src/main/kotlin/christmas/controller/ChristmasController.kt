@@ -1,6 +1,7 @@
 package christmas.controller
 
 import christmas.model.Order
+import christmas.model.event.ChristmasEvent
 import christmas.view.InputView
 import christmas.view.OutputView
 import java.time.DateTimeException
@@ -38,9 +39,22 @@ class ChristmasController(
         }
     }
 
+    private fun OutputView.printEventResult(date: LocalDate, order: Order) {
+        val event = ChristmasEvent(order = order, date = date)
+        val freebies = event.calculateFreebie()
+        printOrderMenus(order.menuAndCounts)
+        printOrderAmount(order.calculateAmount())
+        printFreebies(freebies)
+        printBenefits(event.calculateDiscount(), freebies)
+        printBenefitAmount(event.calculateTotalBenefitAmount())
+        printPaymentAmount(event.calculatePaymentAmount())
+        printBadges(event.calculateBadge())
+    }
+
     fun run() {
-        inputDate()
-        inputOrder()
+        val date = inputDate()
+        val order = inputOrder()
+        outputView.printEventResult(date, order)
     }
 
     companion object {

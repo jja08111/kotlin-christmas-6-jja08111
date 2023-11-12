@@ -1,7 +1,7 @@
 package christmas.model
 
 class Order(
-    private val menuAndCounts: List<Pair<Menu, Int>>
+    val menuAndCounts: List<Pair<Menu, Int>>
 ) {
     init {
         val menuCounts = this.menuAndCounts.map { it.second }

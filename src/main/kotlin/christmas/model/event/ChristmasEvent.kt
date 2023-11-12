@@ -15,7 +15,7 @@ import java.time.LocalDate
 
 class ChristmasEvent(order: Order, date: LocalDate) : Event {
 
-    private val canGiveEvent = order.calculateAmount() >= MIN_ORDER_AMOUNT
+    private val orderAmount = order.calculateAmount()
     private val discounts: List<Discount> = listOf(
         ChristmasDayDiscount(date),
         SpecialDiscount(date),
@@ -26,13 +26,16 @@ class ChristmasEvent(order: Order, date: LocalDate) : Event {
         ChampagneFreebie(order)
     )
 
+    private val canGiveEvent
+        get() = orderAmount >= MIN_ORDER_AMOUNT
+
     override fun calculateDiscount(): List<DiscountResult> {
         if (!canGiveEvent) {
             return emptyList()
         }
         return discounts.mapNotNull {
             val discountResult = it.calculate()
-            if (discountResult.amount != 0) discountResult else null
+            if (discountResult.amount > 0) discountResult else null
         }
     }
 
@@ -43,15 +46,24 @@ class ChristmasEvent(order: Order, date: LocalDate) : Event {
         return freebies.flatMap { it.present() }
     }
 
-    override fun calculateBadge(): List<Badge> {
+    override fun calculateTotalBenefitAmount(): Int {
         val discount = calculateDiscount()
         val freebie = calculateFreebie()
-        val totalBenefitAmount = discount.sumOf { it.amount } + freebie.sumOf { it.price }
+        return discount.sumOf { it.amount } + freebie.sumOf { it.price }
+    }
+
+    override fun calculateBadge(): List<Badge> {
+        val totalBenefitAmount = calculateTotalBenefitAmount()
         val badges = Badge.entries
         val badge = badges.lastOrNull {
             it.requiredBenefitAmount <= totalBenefitAmount
         } ?: return emptyList()
         return listOf(badge)
+    }
+
+    override fun calculatePaymentAmount(): Int {
+        val discountResults = calculateDiscount()
+        return orderAmount - discountResults.sumOf { it.amount }
     }
 
     companion object {
