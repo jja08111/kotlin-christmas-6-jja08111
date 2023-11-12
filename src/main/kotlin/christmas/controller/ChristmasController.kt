@@ -14,7 +14,7 @@ class ChristmasController(
     private fun inputDate(): LocalDate = inputUntilValid(
         onInvalid = outputView::printInvalidDateError
     ) {
-        val day = readDay()
+        val day = readDay(month = MONTH)
         return try {
             LocalDate.of(YEAR, MONTH, day)
         } catch (e: DateTimeException) {
@@ -49,7 +49,7 @@ class ChristmasController(
         printBenefits(event.calculateDiscount(), freebies)
         printBenefitAmount(event.calculateTotalBenefitAmount())
         printPaymentAmount(event.calculatePaymentAmount())
-        printBadges(event.calculateBadge())
+        printBadges(badges = event.calculateBadge(), month = MONTH)
     }
 
     fun run() {

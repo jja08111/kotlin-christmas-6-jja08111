@@ -86,8 +86,8 @@ class OutputView {
         println()
     }
 
-    fun printBadges(badges: List<Badge>) {
-        printTitle("12월 이벤트 배지")
+    fun printBadges(badges: List<Badge>, month: Int) {
+        printTitle("${month}월 이벤트 배지")
         if (badges.isEmpty()) {
             printEmpty()
             return
