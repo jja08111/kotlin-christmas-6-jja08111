@@ -27,19 +27,13 @@ class Order(
     fun countMain(): Int = countMenu<Main>()
 
     private inline fun <reified T : Menu> countMenu(): Int {
-        return menuAndCounts.sumOf {
-            if (it.first is T) {
-                it.second
-            } else 0
+        return menuAndCounts.sumOf { (menu, count) ->
+            if (menu is T) count else 0
         }
     }
 
     fun calculateAmount(): Int {
-        return menuAndCounts.sumOf {
-            val menu = it.first
-            val count = it.second
-            return@sumOf menu.price * count
-        }
+        return menuAndCounts.sumOf { (menu, count) -> menu.price * count }
     }
 
     companion object {

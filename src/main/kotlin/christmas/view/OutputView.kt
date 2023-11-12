@@ -59,7 +59,7 @@ class OutputView {
         }
         if (countByFreebie.isNotEmpty()) {
             val freebieAndCounts = countByFreebie.toList()
-            val freebieAmount = freebieAndCounts.sumOf { it.first.price * it.second }
+            val freebieAmount = freebieAndCounts.sumOf { (menu, count) -> menu.price * count }
             println("증정 이벤트: -${freebieAmount.toNumberFormat()}원")
         }
         println()
