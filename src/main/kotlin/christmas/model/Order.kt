@@ -22,9 +22,13 @@ class Order(
         require(order.any { it.first !is Drink })
     }
 
-    fun countDessert(): Int {
+    fun countDessert(): Int = countMenu<Dessert>()
+
+    fun countMain(): Int = countMenu<Main>()
+
+    private inline fun <reified T : Menu> countMenu(): Int {
         return menuAndCounts.sumOf {
-            if (it.first is Dessert) {
+            if (it.first is T) {
                 it.second
             } else 0
         }
