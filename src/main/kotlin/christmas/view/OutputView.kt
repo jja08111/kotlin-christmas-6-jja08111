@@ -35,17 +35,24 @@ class OutputView {
 
     fun printFreebies(freebies: List<Menu>) {
         printTitle("증정 메뉴")
-        freebies.forEach { menu ->
-            println("${menu.koreanName} 1개")
-        }
         if (freebies.isEmpty()) {
             printEmpty()
+            println()
+            return
+        }
+        freebies.forEach { menu ->
+            println("${menu.koreanName} 1개")
         }
         println()
     }
 
     fun printBenefits(discountResults: List<DiscountResult>, freebies: List<Menu>) {
         printTitle("혜택 내역")
+        if (discountResults.isEmpty() && freebies.isEmpty()) {
+            printEmpty()
+            println()
+            return
+        }
         discountResults.forEach { discountResult ->
             val amount = discountResult.amount
             println("${discountResult.name}: -${amount.toNumberFormat()}원")
@@ -53,9 +60,6 @@ class OutputView {
         if (freebies.isNotEmpty()) {
             val freebieAmount = freebies.sumOf { it.price }
             println("증정 이벤트: -${freebieAmount.toNumberFormat()}원")
-        }
-        if (discountResults.isEmpty() && freebies.isEmpty()) {
-            printEmpty()
         }
         println()
     }
@@ -74,11 +78,12 @@ class OutputView {
 
     fun printBadges(badges: List<Badge>) {
         printTitle("12월 이벤트 배지")
-        badges.forEach { badge ->
-            println(badge.koreanName)
-        }
         if (badges.isEmpty()) {
             printEmpty()
+            return
+        }
+        badges.forEach { badge ->
+            println(badge.koreanName)
         }
     }
 
