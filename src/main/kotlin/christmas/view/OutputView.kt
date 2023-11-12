@@ -17,6 +17,10 @@ class OutputView {
         println("없음")
     }
 
+    fun printWelcomeHeader(month: Int) {
+        println("안녕하세요! 우테코 식당 ${month}월 이벤트 플래너입니다.")
+    }
+
     fun printEventResultHeader(date: LocalDate) {
         println("${date.monthValue}월 ${date.dayOfMonth}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!")
         println()

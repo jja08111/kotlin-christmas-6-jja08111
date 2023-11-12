@@ -53,6 +53,7 @@ class ChristmasController(
     }
 
     fun run() {
+        outputView.printWelcomeHeader(month = MONTH)
         val date = inputDate()
         val order = inputOrder()
         outputView.printEventResult(date, order)
