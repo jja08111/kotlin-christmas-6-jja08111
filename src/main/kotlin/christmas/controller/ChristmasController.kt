@@ -1,17 +1,24 @@
 package christmas.controller
 
-import christmas.model.Date
 import christmas.model.Order
 import christmas.view.InputView
 import christmas.view.OutputView
+import java.time.DateTimeException
+import java.time.LocalDate
 
 class ChristmasController(
     private val inputView: InputView = InputView(),
     private val outputView: OutputView = OutputView()
 ) {
-    private fun inputDate(): Date = inputUntilValid(onInvalid = outputView::printInvalidDateError) {
+    private fun inputDate(): LocalDate = inputUntilValid(
+        onInvalid = outputView::printInvalidDateError
+    ) {
         val day = readDay()
-        return Date(year = YEAR, month = MONTH, day = day)
+        return try {
+            LocalDate.of(YEAR, MONTH, day)
+        } catch (e: DateTimeException) {
+            throw IllegalArgumentException()
+        }
     }
 
     private fun inputOrder(): Order = inputUntilValid(
