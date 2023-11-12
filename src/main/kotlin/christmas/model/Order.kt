@@ -34,6 +34,14 @@ class Order(
         }
     }
 
+    fun calculateAmount(): Int {
+        return menuAndCounts.sumOf {
+            val menu = it.first
+            val count = it.second
+            return@sumOf menu.price * count
+        }
+    }
+
     companion object {
         private const val MIN_MENU_COUNT = 1
         private val TOTAL_MENU_COUNT_RANGE = 1..20
