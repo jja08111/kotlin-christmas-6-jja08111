@@ -1,20 +1,22 @@
 package christmas.model.discount
 
+import christmas.model.DiscountResult
 import java.time.LocalDate
 
 class SpecialDiscount(
     private val date: LocalDate
-): Discount {
-    override val name: String = "특별 할인"
+) : Discount {
 
-    override fun calculate(): Int {
+    override fun calculate(): DiscountResult {
         if (!DISCOUNT_DATES.contains(date)) {
-            return 0
+            return EMPTY_RESULT
         }
-        return DISCOUNT_AMOUNT
+        return DiscountResult(amount = DISCOUNT_AMOUNT, name = NAME)
     }
 
     companion object {
+        private const val NAME: String = "특별 할인"
+        private val EMPTY_RESULT = DiscountResult(name = NAME, amount = 0)
         private const val DISCOUNT_AMOUNT = 1_000
         private val DISCOUNT_DATES = listOf(
             LocalDate.of(2023, 12, 3),

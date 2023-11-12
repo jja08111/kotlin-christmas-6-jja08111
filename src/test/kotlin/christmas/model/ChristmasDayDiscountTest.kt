@@ -12,23 +12,23 @@ class ChristmasDayDiscountTest {
     @Test
     fun `12월이 아닌 경우 할인 금액은 0원이다`() {
         val discount = ChristmasDayDiscount(date = LocalDate.of(2023, 11, 25))
-        val amount = discount.calculate()
-        assert(amount == 0)
+        val result = discount.calculate()
+        assert(result.amount == 0)
     }
 
     @Test
     fun `12월이 25일이 지난 경우 할인 금액은 0원이다`() {
         val discount = ChristmasDayDiscount(date = LocalDate.of(2023, 12, 26))
-        val amount = discount.calculate()
-        assert(amount == 0)
+        val result = discount.calculate()
+        assert(result.amount == 0)
     }
 
     @ParameterizedTest
     @MethodSource("generateDiscountAmountTestArguments")
     fun `12월이 1일에서 25일 사이는 할인을 받는다`(day: Int, expectedAmount: Int) {
         val discount = ChristmasDayDiscount(date = LocalDate.of(2023, 12, day))
-        val actualAmount = discount.calculate()
-        assert(expectedAmount == actualAmount)
+        val result = discount.calculate()
+        assert(expectedAmount == result.amount)
     }
 
     companion object {

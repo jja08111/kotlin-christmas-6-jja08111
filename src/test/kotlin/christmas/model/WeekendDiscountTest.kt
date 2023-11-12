@@ -14,8 +14,8 @@ class WeekendDiscountTest {
             date = LocalDate.of(2023, 12, day),
             order = Order(menuAndCounts = listOf(Main.ChristmasPasta to 1))
         )
-        val discountAmount = discount.calculate()
-        assert(discountAmount == 0)
+        val result = discount.calculate()
+        assert(result.amount == 0)
     }
 
     @Test
@@ -31,8 +31,8 @@ class WeekendDiscountTest {
             date = LocalDate.of(2023, 12, 2),
             order = order
         )
-        val discountAmount = discount.calculate()
-        assert(discountAmount == 0)
+        val result = discount.calculate()
+        assert(result.amount == 0)
     }
 
     @Test
@@ -42,7 +42,7 @@ class WeekendDiscountTest {
             date = LocalDate.of(2023, 12, 2),
             order = order
         )
-        val discountAmount = discount.calculate()
-        assert(discountAmount == 5 * 2_023)
+        val result = discount.calculate()
+        assert(result.amount == 5 * 2_023)
     }
 }

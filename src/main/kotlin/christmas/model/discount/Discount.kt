@@ -1,6 +1,7 @@
 package christmas.model.discount
 
+import christmas.model.DiscountResult
+
 interface Discount {
-    val name: String
-    fun calculate(): Int
+    fun calculate(): DiscountResult
 }
