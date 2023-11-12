@@ -1,5 +1,6 @@
 package christmas.model.event
 
+import christmas.model.Badge
 import christmas.model.DiscountResult
 import christmas.model.Menu
 import christmas.model.Order
@@ -40,6 +41,17 @@ class ChristmasEvent(order: Order, date: LocalDate) : Event {
             return emptyList()
         }
         return freebies.flatMap { it.present() }
+    }
+
+    override fun calculateBadge(): List<Badge> {
+        val discount = calculateDiscount()
+        val freebie = calculateFreebie()
+        val totalBenefitAmount = discount.sumOf { it.amount } + freebie.sumOf { it.price }
+        val badges = Badge.entries
+        val badge = badges.lastOrNull {
+            it.requiredBenefitAmount <= totalBenefitAmount
+        } ?: return emptyList()
+        return listOf(badge)
     }
 
     companion object {
