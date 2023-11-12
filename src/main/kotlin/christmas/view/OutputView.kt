@@ -6,7 +6,7 @@ import christmas.model.Menu
 import java.text.DecimalFormat
 
 import java.text.NumberFormat
-
+import java.time.LocalDate
 
 class OutputView {
     private fun printTitle(title: String) {
@@ -15,6 +15,11 @@ class OutputView {
 
     private fun printEmpty() {
         println("없음")
+    }
+
+    fun printEventResultHeader(date: LocalDate) {
+        println("${date.monthValue}월 ${date.dayOfMonth}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!")
+        println()
     }
 
     fun printOrderMenus(menuAndCounts: List<Pair<Menu, Int>>) {

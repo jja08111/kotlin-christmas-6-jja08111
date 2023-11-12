@@ -42,6 +42,7 @@ class ChristmasController(
     private fun OutputView.printEventResult(date: LocalDate, order: Order) {
         val event = ChristmasEvent(order = order, date = date)
         val freebies = event.calculateFreebie()
+        printEventResultHeader(date)
         printOrderMenus(order.menuAndCounts)
         printOrderAmount(order.calculateAmount())
         printFreebies(freebies)

@@ -103,6 +103,16 @@ class ApplicationTest : NsTest() {
         }
     }
 
+    @Test
+    fun `이벤트 결과 헤더 출력`() {
+        assertSimpleTest {
+            run("24", "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1")
+            assertThat(output()).contains(
+                "12월 24일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!",
+            )
+        }
+    }
+
     override fun runMain() {
         main()
     }
