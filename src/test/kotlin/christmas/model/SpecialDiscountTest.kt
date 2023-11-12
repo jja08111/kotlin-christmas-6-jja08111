@@ -1,5 +1,6 @@
 package christmas.model
 
+import christmas.model.discount.SpecialDiscount
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import java.time.LocalDate

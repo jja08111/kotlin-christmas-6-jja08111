@@ -1,4 +1,8 @@
-package christmas.model
+package christmas.model.freebie
+
+import christmas.model.Drink
+import christmas.model.Menu
+import christmas.model.Order
 
 class ChampagneFreebieEvent(private val order: Order) : FreebieEvent {
 

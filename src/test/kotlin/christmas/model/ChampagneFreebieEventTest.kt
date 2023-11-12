@@ -1,5 +1,6 @@
 package christmas.model
 
+import christmas.model.freebie.ChampagneFreebieEvent
 import org.junit.jupiter.api.Test
 
 class ChampagneFreebieEventTest {

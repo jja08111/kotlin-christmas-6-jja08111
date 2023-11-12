@@ -1,4 +1,4 @@
-package christmas.model
+package christmas.model.discount
 
 import java.time.LocalDate
 
