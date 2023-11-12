@@ -70,10 +70,7 @@ class ChristmasEvent(order: Order, date: LocalDate) : Event {
 
     override fun calculateBadge(): List<Badge> {
         val totalBenefitAmount = calculateTotalBenefitAmount()
-        val badges = Badge.entries
-        val badge = badges.lastOrNull {
-            it.requiredBenefitAmount <= totalBenefitAmount
-        } ?: return emptyList()
+        val badge = Badge.getOrNullBy(benefitAmount = totalBenefitAmount) ?: return emptyList()
         return listOf(badge)
     }
 
