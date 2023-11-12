@@ -1,6 +1,9 @@
 package christmas.model
 
-val allMenus: List<Menu> = Appetizer.entries + Main.entries + Dessert.entries + Drink.entries
+private val allMenus: List<Menu> = Appetizer.entries +
+        Main.entries +
+        Dessert.entries +
+        Drink.entries
 
 fun String.toMenuOrNull(): Menu? {
     return allMenus.firstOrNull { menu -> menu.koreanName == this }
